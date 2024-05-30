@@ -1,0 +1,23 @@
+img{
+    max-width: inherit;
+    height: 500px;
+    object-fit: cover;
+}
+
+.row{
+    height: auto;
+}
+.col-6{
+    padding: 2rem;
+    align-content: center;
+}
+
+h1{
+    text-align: center;
+}
+
+video{
+    width: 100%;
+    height: fit-content;
+    padding: 2rem;
+}
