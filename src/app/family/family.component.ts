@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-family',
   templateUrl: './family.component.html',
-  styleUrls: ['./family.component.css']
+  styleUrls: ['./family.component.css'],
 })
-export class FamilyComponent implements OnInit {
+export class FamilyComponent {
+  formData: any = {};
 
-  constructor() { }
+  constructor(private dataService: DataService) {}
 
-  ngOnInit(): void {
+  onSubmit(): void {
+    this.dataService.updateFamilyData(this.formData);
+    this.formData = {};
+    alert('Data submitted successfully!');
   }
-
 }

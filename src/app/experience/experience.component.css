@@ -7,3 +7,22 @@
     padding: 2rem;
 
 }
+
+#ac{
+    margin-right: 2rem;
+}
+
+.form-check-inline{
+    padding-right: 1rem;
+}
+
+
+._yrs {
+    font-size: 15px;
+    color: #297195;
+    display: inline-block;
+  }
+  
+  #LoanTermSlider {
+    width: 100%;
+  }

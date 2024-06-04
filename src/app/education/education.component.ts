@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-education',
   templateUrl: './education.component.html',
-  styleUrls: ['./education.component.css']
+  styleUrls: ['./education.component.css'],
 })
-export class EducationComponent implements OnInit {
+export class EducationComponent {
+  formData: any = {};
 
-  constructor() { }
+  constructor(private dataService: DataService) {}
 
-  ngOnInit(): void {
+  onSubmit(): void {
+    this.dataService.updateEducationData(this.formData);
+    this.formData = {};
+    alert('Data submitted successfully!');
   }
-
 }

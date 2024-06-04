@@ -1,60 +1,78 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<div class="max-container">
-    <h3>Experience</h3>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-    <div class="container">
-        <form>
-            <!-- 2 column grid layout with text inputs for the first and last names -->
-            <div class="row mb-4">
-              <div class="col">
-                <div data-mdb-input-init class="form-outline">
-                  <input type="text" id="form6Example1" class="form-control" />
-                  <label class="form-label" for="form6Example1">First name</label>
-                </div>
-              </div>
-              <div class="col">
-                <div data-mdb-input-init class="form-outline">
-                  <input type="text" id="form6Example2" class="form-control" />
-                  <label class="form-label" for="form6Example2">Last name</label>
-                </div>
-              </div>
-            </div>
-          
-            <!-- Text input -->
-            <div data-mdb-input-init class="form-outline mb-4">
-              <input type="text" id="form6Example3" class="form-control" />
-              <label class="form-label" for="form6Example3">Company name</label>
-            </div>
-          
-            <!-- Text input -->
-            <div data-mdb-input-init class="form-outline mb-4">
-              <input type="text" id="form6Example4" class="form-control" />
-              <label class="form-label" for="form6Example4">Address</label>
-            </div>
-          
-            <!-- Email input -->
-            <div data-mdb-input-init class="form-outline mb-4">
-              <input type="email" id="form6Example5" class="form-control" />
-              <label class="form-label" for="form6Example5">Email</label>
-            </div>
-          
-            <!-- Number input -->
-            <div data-mdb-input-init class="form-outline mb-4">
-              <input type="number" id="form6Example6" class="form-control" />
-              <label class="form-label" for="form6Example6">Phone</label>
-            </div>
-          
-            <!-- Message input -->
-            <div data-mdb-input-init class="form-outline mb-4">
-              <textarea class="form-control" id="form6Example7" rows="4"></textarea>
-              <label class="form-label" for="form6Example7">Additional information</label>
-            </div>
-          
-         
-          
-            <!-- Submit button -->
-            <button data-mdb-ripple-init type="button" class="btn btn-primary btn-block mb-4">Submit</button>
-          </form>
-    </div>
-    
+<div class="max-container">
+  <h3>Experience</h3>
+
+  <div class="container">
+    <form (ngSubmit)="experienceFormSubmit()">
+      <div data-mdb-input-init class="form-outline mb-4">
+        <input type="text" id="employeeId" name="employeeId" [(ngModel)]="experienceFormData.employeeId" class="form-control" />
+        <label class="form-label" for="employeeId">Employee ID</label>
+      </div>
+
+      <div data-mdb-input-init class="form-outline mb-4">
+        <input type="text" id="lastcomp1" name="lastcomp1" [(ngModel)]="experienceFormData.lastcomp1" class="form-control" />
+        <label class="form-label" for="lastcomp1">Last Company</label>
+      </div>
+
+      <div data-mdb-input-init class="form-outline mb-4">
+        <label id="ac" class="form-label" for="role1">Role</label>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="dev1" (change)="onRoleChange($event, 'Developer', 'roles1')" name="dev1" value="Developer">
+          <label class="form-check-label" for="dev1">Developer</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="tester1" (change)="onRoleChange($event, 'Tester', 'roles1')" name="tester1" value="Tester">
+          <label class="form-check-label" for="tester1">Tester</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="designer1" (change)="onRoleChange($event, 'Designer', 'roles1')" name="designer1" value="Designer">
+          <label class="form-check-label" for="designer1">Designer</label>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-check-label" for="tenure1">Tenure</label>
+        <span class="_yrs" id="slider-label1"></span>
+        <input type="range" class="form-range" min="1" max="20" value="1" [(ngModel)]="experienceFormData.tenure1" id="tenure1" name="tenure1">
+        <div class="d-flex justify-content-between">
+          <span class="max-amount f-16 font-weight-normal darkGray-color text-right mt-1">1 yr.</span>
+          <span class="max-amount f-16 font-weight-normal darkGray-color text-right mt-1">20 yrs.</span>
+        </div>
+      </div>
+
+      <div data-mdb-input-init class="form-outline mb-4">
+        <input type="text" id="lastcomp2" name="lastcomp2" [(ngModel)]="experienceFormData.lastcomp2" class="form-control" />
+        <label class="form-label" for="lastcomp2">Second Last Company</label>
+      </div>
+
+      <div data-mdb-input-init class="form-outline mb-4">
+        <label id="ac" class="form-label" for="role2">Role</label>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="dev2" (change)="onRoleChange($event, 'Developer', 'roles2')" name="dev2" value="Developer">
+          <label class="form-check-label" for="dev2">Developer</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="tester2" (change)="onRoleChange($event, 'Tester', 'roles2')" name="tester2" value="Tester">
+          <label class="form-check-label" for="tester2">Tester</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="designer2" (change)="onRoleChange($event, 'Designer', 'roles2')" name="designer2" value="Designer">
+          <label class="form-check-label" for="designer2">Designer</label>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <span class="_yrs" id="slider-label2"></span>
+        <input type="range" class="form-range" min="1" max="20" value="1" [(ngModel)]="experienceFormData.tenure2" id="tenure2" name="tenure2">
+        <div class="d-flex justify-content-between">
+          <span class="max-amount f-16 font-weight-normal darkGray-color text-right mt-1">1 yr.</span>
+          <span class="max-amount f-16 font-weight-normal darkGray-color text-right mt-1">20 yrs.</span>
+        </div>
+      </div>
+
+      <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block mb-4">Submit</button>
+    </form>
+  </div>
 </div>
