@@ -4,38 +4,29 @@
   <div class="container">
     <form (ngSubmit)="onSubmit()">
       <div class="form-outline mb-4">
-        <input type="text" id="name" class="form-control" [(ngModel)]="formData.name" name="name" />
+        <input type="text" id="name" class="form-control" [(ngModel)]="formData.name" name="name" required />
         <label class="form-label" for="name">Name</label>
       </div>
 
       <div class="row mb-4">
         <div class="col">
           <div class="form-outline">
-            <input type="date" id="dob" class="form-control" [(ngModel)]="formData.dob" name="dob" />
+            <input type="date" id="dob" class="form-control" [(ngModel)]="formData.dob" name="dob" required />
             <label class="form-label" for="dob">DOB</label>
           </div>
         </div>
-        <div class="col">
-          <div class="form-outline">
-            <input type="text" id="employeeId" class="form-control" [(ngModel)]="formData.employeeId" name="employeeId" />
-            <label class="form-label" for="employeeId">Employee ID</label>
-          </div>
-        </div>
       </div>
 
-      <!-- Text input -->
       <div class="form-outline mb-4">
-        <input type="text" id="address" class="form-control" [(ngModel)]="formData.address" name="address" />
+        <input type="text" id="address" class="form-control" [(ngModel)]="formData.address" name="address" required />
         <label class="form-label" for="address">Address</label>
       </div>
 
-      <!-- Email input -->
       <div class="form-outline mb-4">
-        <input type="email" id="designation" class="form-control" [(ngModel)]="formData.designation" name="designation" />
+        <input type="text" id="designation" class="form-control" [(ngModel)]="formData.designation" name="designation" required />
         <label class="form-label" for="designation">Designation</label>
       </div>
 
-      <!-- Submit button -->
       <button type="submit" class="btn btn-primary btn-block mb-4">Submit</button>
     </form>
   </div>

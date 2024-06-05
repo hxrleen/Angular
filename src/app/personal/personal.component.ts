@@ -12,8 +12,24 @@ export class PersonalComponent {
   constructor(private dataService: DataService) {}
 
   onSubmit(): void {
-    this.dataService.updatePersonalData(this.formData);
-    this.formData = {};
-    alert('Data submitted successfully!');
+    if (this.isValidFormData(this.formData)) {
+      this.formData.id = this.generateUniqueId();
+      this.dataService.updatePersonalData(this.formData);
+      this.formData = {};
+    } else {
+      alert('Please fill out all fields.');
+    }
+  }
+
+  private isValidFormData(data: any): boolean {
+    return data.name && data.dob && data.address && data.designation;
+  }
+
+  private generateUniqueId(): string {
+    return (
+      'BTS_' +
+      Date.now().toString(16) +
+      Math.floor(Math.random() * 1000).toString(16)
+    );
   }
 }

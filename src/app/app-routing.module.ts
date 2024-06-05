@@ -7,45 +7,31 @@ import { PersonalComponent } from './personal/personal.component';
 import { FamilyComponent } from './family/family.component';
 import { EducationComponent } from './education/education.component';
 import { ExperienceComponent } from './experience/experience.component';
+import { AuthGuard } from './auth.guard';
+import { LogoutComponent } from './logout/logout.component';
+
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'home/login', component: LoginComponent },
+  { path: 'logout', component: LogoutComponent },
   {
     path: 'home',
     component: HomeComponent,
+    canActivate: [AuthGuard],
     children: [
-      {
-        path: '',
-        redirectTo: 'homepage',
-        pathMatch: 'full',
-      },
-      {
-        path: 'homepage',
-        component: HomepageComponent,
-      },
-      {
-        path: 'personal',
-        component: PersonalComponent,
-      },
-      {
-        path: 'family',
-        component: FamilyComponent,
-      },
-      {
-        path: 'education',
-        component: EducationComponent,
-      },
-      {
-        path: 'experience',
-        component: ExperienceComponent,
-      },
+      { path: '', redirectTo: 'homepage', pathMatch: 'full' },
+      { path: 'homepage', component: HomepageComponent },
+      { path: 'personal', component: PersonalComponent },
+      { path: 'family', component: FamilyComponent },
+      { path: 'education', component: EducationComponent },
+      { path: 'experience', component: ExperienceComponent },
+      { path: 'logout', component: LogoutComponent },
     ],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

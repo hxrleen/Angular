@@ -5,23 +5,26 @@
   <div class="container">
     <form (ngSubmit)="onSubmit()">
       <div class="form-outline mb-4">
-        <input type="text" id="id" class="form-control" [(ngModel)]="formData.id" name="id" />
+        <select id="id" class="form-control" [(ngModel)]="formData.id" name="id" required>
+          <option value="" disabled>Select</option>
+          <option *ngFor="let id of personalDataIds" [value]="id">{{ id }}</option>
+        </select>
         <label class="form-label" for="id">Employee ID</label>
       </div>
       <div class="form-outline mb-4">
-        <input type="text" id="fathersName" class="form-control" [(ngModel)]="formData.fathersName" name="fathersName" />
+        <input type="text" id="fathersName" class="form-control" [(ngModel)]="formData.fathersName" name="fathersName" required />
         <label class="form-label" for="fathersName">Father's Name</label>
       </div>
       <div class="form-outline mb-4">
-        <input type="date" id="fatherDOB" class="form-control" [(ngModel)]="formData.fatherDOB" name="fatherDOB" />
+        <input type="date" id="fatherDOB" class="form-control" [(ngModel)]="formData.fatherDOB" name="fatherDOB" required />
         <label class="form-label" for="fatherDOB">Father's DOB</label>
       </div>
       <div class="form-outline mb-4">
-        <input type="text" id="motherName" class="form-control" [(ngModel)]="formData.motherName" name="motherName" />
+        <input type="text" id="motherName" class="form-control" [(ngModel)]="formData.motherName" name="motherName" required />
         <label class="form-label" for="motherName">Mother's Name</label>
       </div>
       <div class="form-outline mb-4">
-        <input type="date" id="motherDOB" class="form-control" [(ngModel)]="formData.motherDOB" name="motherDOB" />
+        <input type="date" id="motherDOB" class="form-control" [(ngModel)]="formData.motherDOB" name="motherDOB" required />
         <label class="form-label" for="motherDOB">Mother's DOB</label>
       </div>
       <div class="form-outline mb-4">

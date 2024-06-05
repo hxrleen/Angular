@@ -1,9 +1,8 @@
-
 <ul>
-    <li><a routerLink="homepage" routerLinkActive="active">Home</a></li>
-    <li><a [routerLink]="'personal'" routerLinkActive="active">Personal</a></li>
-    <li><a [routerLink]="'family'" routerLinkActive="active">Family</a></li>
-    <li><a [routerLink]="'education'" routerLinkActive="active">Education</a></li>
-    <li><a [routerLink]="'experience'" routerLinkActive="active">Experience</a></li>
-    <li style="float:right"><a class="active" routerLinkActive="active" routerLink="login">Logout</a></li>
+  <li><a routerLink="home/homepage" routerLinkActive="active">Home</a></li>
+  <li><a [routerLink]="'personal'" routerLinkActive="active">Personal</a></li>
+  <li><a [routerLink]="'family'" routerLinkActive="active">Family</a></li>
+  <li><a [routerLink]="'education'" routerLinkActive="active">Education</a></li>
+  <li><a [routerLink]="'experience'" routerLinkActive="active">Experience</a></li>
+  <li style="float:right"><a [routerLink]="'logout'" routerLinkActive="active">Logout</a></li>
 </ul>

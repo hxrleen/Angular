@@ -7,27 +7,28 @@ import { DataService } from '../data.service';
   styleUrls: ['./experience.component.css'],
 })
 export class ExperienceComponent implements OnInit {
+  experienceFormData: any = { employeeId: '', roles1: [], roles2: [] };
+  personalDataIds: string[] = [];
+
   constructor(private renderer: Renderer2, private dataService: DataService) {}
 
-  experienceFormData: any = {
-    roles1: [],
-    roles2: [],
-  };
-
-  experienceFormSubmit(): void {
-    this.dataService.updateExperienceData(this.experienceFormData);
-
-    this.experienceFormData = {
-      roles1: [],
-      roles2: [],
-    };
-
-    alert('Data submitted successfully!');
-  }
-
   ngOnInit(): void {
+    this.dataService.personalData$.subscribe((personalData) => {
+      this.personalDataIds = personalData.map((data) => data.id);
+    });
+
     this.initializeSlider('tenure1', 'slider-label1');
     this.initializeSlider('tenure2', 'slider-label2');
+  }
+
+  experienceFormSubmit(): void {
+    if (this.experienceFormData.employeeId === '') {
+      alert('Please select a valid Employee ID.');
+      return;
+    }
+    this.dataService.updateExperienceData(this.experienceFormData);
+    this.experienceFormData = { employeeId: '', roles1: [], roles2: [] };
+    alert('Data submitted successfully!');
   }
 
   initializeSlider(sliderId: string, labelId: string): void {
@@ -45,7 +46,7 @@ export class ExperienceComponent implements OnInit {
 
   updateSliderLabel(slider: HTMLInputElement, span: HTMLElement): void {
     let marginValue = parseInt(slider.value) * 5 - 4;
-    if (parseInt(slider.value) == 20) {
+    if (parseInt(slider.value) === 20) {
       marginValue -= 6;
       if (screen.width < 993) {
         marginValue -= 6;

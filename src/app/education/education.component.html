@@ -5,7 +5,10 @@
   <div class="container">
     <form (ngSubmit)="onSubmit()">
       <div class="form-outline mb-4">
-        <input type="text" id="employeeId" class="form-control" [(ngModel)]="formData.employeeId" name="employeeId" />
+        <select id="employeeId" class="form-control" [(ngModel)]="formData.employeeId" name="employeeId" required>
+          <option value="" disabled selected>Select</option>
+          <option *ngFor="let id of personalDataIds" [value]="id">{{ id }}</option>
+        </select>
         <label class="form-label" for="employeeId">Employee ID</label>
       </div>
       <div class="form-outline mb-4">

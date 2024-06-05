@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,15 +11,10 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   onSubmit(): void {
-    if (this.username == 'abc' && this.password == 'p') {
-      console.log('Login successful with data:', {
-        username: this.username,
-        password: this.password,
-      });
-
+    if (this.authService.login(this.username, this.password)) {
       this.router.navigate(['/home']);
     } else {
       console.log('Form is invalid');

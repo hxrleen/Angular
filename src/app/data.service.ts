@@ -3,7 +3,6 @@ import { BehaviorSubject } from 'rxjs';
 
 interface PersonalData {
   id: string;
-  // Other fields...
 }
 
 @Injectable({
@@ -30,36 +29,25 @@ export class DataService {
   );
   experienceData$ = this.experienceDataSubject.asObservable();
 
-  private getDataFromLocalStorage<T>(key: string): T[] {
-    try {
-      return JSON.parse(localStorage.getItem(key) || '[]') as T[];
-    } catch (error) {
-      console.error(
-        `Error parsing data from localStorage for key: ${key}`,
-        error
-      );
-      return [];
-    }
+  private getDataFromLocalStorage(key: string): any[] {
+    return JSON.parse(localStorage.getItem(key) || '[]');
   }
 
-  private setDataToLocalStorage<T>(key: string, data: T[]): void {
+  private setDataToLocalStorage(key: string, data: any[]): void {
     localStorage.setItem(key, JSON.stringify(data));
   }
 
-  private updateData<T>(
-    subject: BehaviorSubject<T[]>,
+  private updateData(
+    subject: BehaviorSubject<any[]>,
     key: string,
-    newData: T
+    newData: any
   ): void {
     const updatedData = [...subject.value, newData];
     subject.next(updatedData);
     this.setDataToLocalStorage(key, updatedData);
   }
 
-  private doesIdExist<T extends { id: string }>(
-    subject: BehaviorSubject<T[]>,
-    id: string
-  ): boolean {
+  private doesIdExist(subject: BehaviorSubject<any[]>, id: string): boolean {
     return subject.value.some((item) => item.id === id);
   }
 
