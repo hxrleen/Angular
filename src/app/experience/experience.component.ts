@@ -13,13 +13,16 @@ export class ExperienceComponent implements OnInit {
   constructor(private renderer: Renderer2, private dataService: DataService) {}
 
   ngOnInit(): void {
+    //for personal id in dropdown
     this.dataService.personalData$.subscribe((personalData) => {
       this.personalDataIds = personalData.map((data) => data.id);
     });
 
+    //experience data
     this.dataService.experienceformData$.subscribe((formData) => {
       this.experienceFormData = { ...formData };
 
+      // roles1 and roles2
       if (!Array.isArray(this.experienceFormData.roles1)) {
         this.experienceFormData.roles1 = [];
       }
@@ -27,7 +30,6 @@ export class ExperienceComponent implements OnInit {
         this.experienceFormData.roles2 = [];
       }
 
-      // console.log(this.experienceFormData);
       this.updateSliderUI('tenure1', formData.tenure1);
       this.updateSliderUI('tenure2', formData.tenure2);
       this.updateRoleCheckboxes();
@@ -39,13 +41,30 @@ export class ExperienceComponent implements OnInit {
 
   experienceFormSubmit(): void {
     if (this.experienceFormData.employeeId === '') {
-      alert('select a valid employee id');
+      alert('Select a valid employee id');
       return;
     }
-    this.dataService.updateExperienceData(this.experienceFormData);
+
+    const existingIndex = this.dataService.experienceData.findIndex(
+      (entry) => entry.employeeId === this.experienceFormData.employeeId
+    );
+
+    if (existingIndex !== -1) {
+      // Update existing entry
+      this.dataService.updateExperienceDataAtIndex(
+        existingIndex,
+        this.experienceFormData
+      );
+    } else {
+      // Add new entry
+      this.dataService.updateExperienceData(this.experienceFormData);
+    }
+
     this.experienceFormData = { employeeId: '', roles1: [], roles2: [] };
     alert('Data submitted successfully!');
   }
+
+  //slider
 
   initializeSlider(sliderId: string, labelId: string): void {
     const slider = document.getElementById(sliderId) as HTMLInputElement;
@@ -85,15 +104,13 @@ export class ExperienceComponent implements OnInit {
     span.innerHTML = `${slider.value} ${_yrsTxt}`;
   }
 
-  updateRoleCheckboxes(): void {
-    // console.log('role1', this.experienceFormData.roles1);
-    // console.log('role2', this.experienceFormData.roles2);
+  //checkbox
 
+  updateRoleCheckboxes(): void {
     const roles1Checkboxes = document.querySelectorAll(
       'input[name="roles1"]'
     ) as NodeListOf<HTMLInputElement>;
     roles1Checkboxes.forEach((checkbox) => {
-      // console.log('checkbox:', checkbox.value);
       checkbox.checked = this.experienceFormData.roles1.includes(
         checkbox.value
       );
@@ -103,7 +120,6 @@ export class ExperienceComponent implements OnInit {
       'input[name="roles2"]'
     ) as NodeListOf<HTMLInputElement>;
     roles2Checkboxes.forEach((checkbox) => {
-      // console.log('checkbox', checkbox.value);
       checkbox.checked = this.experienceFormData.roles2.includes(
         checkbox.value
       );
@@ -126,7 +142,5 @@ export class ExperienceComponent implements OnInit {
         this.experienceFormData[roleArray].splice(index, 1);
       }
     }
-    // console.log('updated Roles1:', this.experienceFormData.roles1);
-    // console.log('updated Roles2:', this.experienceFormData.roles2);
   }
 }

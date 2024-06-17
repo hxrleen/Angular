@@ -27,7 +27,14 @@ export class EducationComponent implements OnInit {
       alert('selct a valid employee ID');
       return;
     }
-    this.dataService.updateEducationData(this.formData);
+    if (
+      this.dataService.doesEmployeeIdExistInEducation(this.formData.employeeId)
+    ) {
+      this.dataService.updateEducationData(this.formData);
+    } else {
+      this.dataService.addEducationData(this.formData);
+    }
+
     this.formData = { employeeId: '' };
     alert('Data submitted successfully!');
   }
