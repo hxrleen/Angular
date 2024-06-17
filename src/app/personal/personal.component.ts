@@ -11,6 +11,12 @@ export class PersonalComponent {
 
   constructor(private dataService: DataService) {}
 
+  ngOnInit(): void {
+    this.dataService.personalformData$.subscribe((formData) => {
+      this.formData = { ...formData };
+    });
+  }
+
   onSubmit(): void {
     if (this.isValidFormData(this.formData)) {
       this.formData.id = this.generateUniqueId();

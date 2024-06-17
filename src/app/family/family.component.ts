@@ -16,6 +16,10 @@ export class FamilyComponent implements OnInit {
     this.dataService.personalData$.subscribe((personalData) => {
       this.personalDataIds = personalData.map((data) => data.id);
     });
+
+    this.dataService.familyformData$.subscribe((formData) => {
+      this.formData = { ...formData };
+    });
   }
 
   onSubmit(): void {

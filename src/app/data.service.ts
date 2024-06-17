@@ -3,6 +3,10 @@ import { BehaviorSubject } from 'rxjs';
 
 interface PersonalData {
   id: string;
+  name: string;
+  dob: string;
+  address: string;
+  designation: string;
 }
 
 @Injectable({
@@ -13,6 +17,18 @@ export class DataService {
     this.getDataFromLocalStorage('personalData')
   );
   personalData$ = this.personalDataSubject.asObservable();
+
+  private personalformDataSubject = new BehaviorSubject<any>({});
+  personalformData$ = this.personalformDataSubject.asObservable();
+
+  private familyformDataSubject = new BehaviorSubject<any>({});
+  familyformData$ = this.familyformDataSubject.asObservable();
+
+  private educationformDataSubject = new BehaviorSubject<any>({});
+  educationformData$ = this.educationformDataSubject.asObservable();
+
+  private experienceformDataSubject = new BehaviorSubject<any>({});
+  experienceformData$ = this.experienceformDataSubject.asObservable();
 
   private familyDataSubject = new BehaviorSubject<any[]>(
     this.getDataFromLocalStorage('familyData')
@@ -70,5 +86,69 @@ export class DataService {
 
   updateExperienceData(newData: any): void {
     this.updateData(this.experienceDataSubject, 'experienceData', newData);
+  }
+
+  //delete---------------------------------------------------------------
+
+  deletePersonalData(id: string): void {
+    if (confirm('Are you sure?')) {
+      const updatedData = this.personalDataSubject.value.filter(
+        (item) => item.id !== id
+      );
+      this.personalDataSubject.next(updatedData);
+      this.setDataToLocalStorage('personalData', updatedData);
+      alert('Data deleted successfully!');
+    }
+  }
+
+  deleteFamilyData(id: string): void {
+    if (confirm('Are you sure?')) {
+      const updatedData = this.familyDataSubject.value.filter(
+        (item) => item.id !== id
+      );
+      this.familyDataSubject.next(updatedData);
+      this.setDataToLocalStorage('familyData', updatedData);
+      alert('Data deleted successfully!');
+    }
+  }
+
+  deleteExperienceData(id: string): void {
+    if (confirm('Are you sure?')) {
+      const updatedData = this.experienceDataSubject.value.filter(
+        (item) => item.employeeId !== id
+      );
+      this.experienceDataSubject.next(updatedData);
+      this.setDataToLocalStorage('experienceData', updatedData);
+      alert('Data deleted successfully!');
+    }
+  }
+
+  deleteEducationData(id: string): void {
+    if (confirm('Are you sure?')) {
+      const updatedData = this.educationDataSubject.value.filter(
+        (item) => item.employeeId !== id
+      );
+      this.educationDataSubject.next(updatedData);
+      this.setDataToLocalStorage('educationData', updatedData);
+      alert('Data deleted successfully!');
+    }
+  }
+
+  //edit------------------------------------------------------------
+
+  setPersonalFormData(formData: any): void {
+    this.personalformDataSubject.next(formData);
+  }
+
+  setFamilyFormData(formData: any): void {
+    this.familyformDataSubject.next(formData);
+  }
+
+  setEducationFormData(formData: any): void {
+    this.educationformDataSubject.next(formData);
+  }
+
+  setExperienceFormData(formData: any): void {
+    this.experienceformDataSubject.next(formData);
   }
 }

@@ -16,11 +16,15 @@ export class EducationComponent implements OnInit {
     this.dataService.personalData$.subscribe((personalData) => {
       this.personalDataIds = personalData.map((data) => data.id);
     });
+
+    this.dataService.educationformData$.subscribe((formData) => {
+      this.formData = { ...formData };
+    });
   }
 
   onSubmit(): void {
     if (this.formData.employeeId === '') {
-      alert('Please select a valid Employee ID.');
+      alert('selct a valid employee ID');
       return;
     }
     this.dataService.updateEducationData(this.formData);

@@ -1,14 +1,6 @@
 # FirstAngularProject
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.18. 
-
-Just download the node modules and you are good to go !
-
-<h3>First Clean the cache</h3>
-<code>npm cache clean --force</code>
-
-<h3>Then Install It</h3>
-<code>npm install</code>
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.18.
 
 ## Development server
 
