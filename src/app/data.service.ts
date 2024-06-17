@@ -24,7 +24,7 @@ export class DataService {
   // Family data
   private familyformDataSubject = new BehaviorSubject<any>({});
   familyformData$ = this.familyformDataSubject.asObservable();
-  private familyDataSubject = new BehaviorSubject<any[]>(
+  public familyDataSubject = new BehaviorSubject<any[]>(
     this.getDataFromLocalStorage('familyData')
   );
   familyData$ = this.familyDataSubject.asObservable();
@@ -78,13 +78,35 @@ export class DataService {
     }
   }
 
-  private doesIdExist(subject: BehaviorSubject<any[]>, id: string): boolean {
+  public doesIdExist(subject: BehaviorSubject<any[]>, id: string): boolean {
     return subject.value.some((item) => item.id === id);
   }
 
   // Family data methods
   updateFamilyData(newData: any): void {
-    this.updateData(this.familyDataSubject, 'familyData', newData);
+    const index = this.familyDataSubject.value.findIndex(
+      (item) => item.id === newData.id
+    );
+    if (index !== -1) {
+      const updatedData = [...this.familyDataSubject.value];
+      updatedData[index] = newData;
+      this.familyDataSubject.next(updatedData);
+      this.setDataToLocalStorage('familyData', updatedData);
+      alert('Data updated successfully!');
+    } else {
+      this.addFamilyData(newData);
+    }
+  }
+
+  addFamilyData(newData: any): void {
+    if (this.doesIdExist(this.familyDataSubject, newData.id)) {
+      alert(`The ID already exists in familyData.`);
+    } else {
+      const updatedData = [...this.familyDataSubject.value, newData];
+      this.familyDataSubject.next(updatedData);
+      this.setDataToLocalStorage('familyData', updatedData);
+      alert('New data added successfully!');
+    }
   }
 
   // Education data methods

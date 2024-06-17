@@ -27,7 +27,16 @@ export class FamilyComponent implements OnInit {
       alert('Please select a valid Employee ID.');
       return;
     }
-    this.dataService.updateFamilyData(this.formData);
+    if (
+      this.dataService.doesIdExist(
+        this.dataService.familyDataSubject,
+        this.formData.id
+      )
+    ) {
+      this.dataService.updateFamilyData(this.formData);
+    } else {
+      this.dataService.addFamilyData(this.formData);
+    }
     this.formData = { id: '' };
     alert('Data submitted successfully!');
   }
