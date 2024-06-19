@@ -7,11 +7,11 @@
   <div class="container">
     <form (ngSubmit)="experienceFormSubmit()">
       <div data-mdb-input-init class="form-outline mb-4">
-        <select id="employeeId" name="employeeId" [(ngModel)]="experienceFormData.employeeId" class="form-control" required>
+        <select id="id" name="id" [(ngModel)]="experienceFormData.id" class="form-control" required>
           <option value="" disabled selected>Select</option>
           <option *ngFor="let id of personalDataIds" [value]="id">{{ id }}</option>
         </select>
-        <label class="form-label" for="employeeId">Employee ID</label>
+        <label class="form-label" for="id">Employee ID</label>
       </div>
 
       <div data-mdb-input-init class="form-outline mb-4">

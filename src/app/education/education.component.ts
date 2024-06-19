@@ -7,7 +7,7 @@ import { DataService } from '../data.service';
   styleUrls: ['./education.component.css'],
 })
 export class EducationComponent implements OnInit {
-  formData: any = { employeeId: '' };
+  formData: any = { id: '' };
   personalDataIds: string[] = [];
 
   constructor(private dataService: DataService) {}
@@ -23,19 +23,21 @@ export class EducationComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.formData.employeeId === '') {
+    if (this.formData.id === '') {
       alert('selct a valid employee ID');
       return;
     }
     if (
-      this.dataService.doesEmployeeIdExistInEducation(this.formData.employeeId)
+      this.dataService.doesIdExist(
+        this.dataService.educationDataSubject,
+        this.formData.id
+      )
     ) {
       this.dataService.updateEducationData(this.formData);
     } else {
       this.dataService.addEducationData(this.formData);
     }
 
-    this.formData = { employeeId: '' };
-    alert('Data submitted successfully!');
+    this.formData = { id: '' };
   }
 }

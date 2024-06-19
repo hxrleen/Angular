@@ -17,47 +17,54 @@ export class DataService {
   public personalDataSubject = new BehaviorSubject<PersonalData[]>(
     this.getDataFromLocalStorage('personalData')
   );
+
   personalData$ = this.personalDataSubject.asObservable();
+
   private personalformDataSubject = new BehaviorSubject<any>({});
   personalformData$ = this.personalformDataSubject.asObservable();
 
   // Family data
-  private familyformDataSubject = new BehaviorSubject<any>({});
-  familyformData$ = this.familyformDataSubject.asObservable();
   public familyDataSubject = new BehaviorSubject<any[]>(
     this.getDataFromLocalStorage('familyData')
   );
+
   familyData$ = this.familyDataSubject.asObservable();
 
+  private familyformDataSubject = new BehaviorSubject<any>({});
+  familyformData$ = this.familyformDataSubject.asObservable();
+
   // Education data
-  private educationformDataSubject = new BehaviorSubject<any>({});
-  educationformData$ = this.educationformDataSubject.asObservable();
-  private educationDataSubject = new BehaviorSubject<any[]>(
+  public educationDataSubject = new BehaviorSubject<any[]>(
     this.getDataFromLocalStorage('educationData')
   );
+
   educationData$ = this.educationDataSubject.asObservable();
 
+  private educationformDataSubject = new BehaviorSubject<any>({});
+  educationformData$ = this.educationformDataSubject.asObservable();
+
   // Experience data
-  private experienceformDataSubject = new BehaviorSubject<any>({});
-  experienceformData$ = this.experienceformDataSubject.asObservable();
-  private experienceformDataSource = new BehaviorSubject<any>({});
-  experienceData: any[] = [];
   private experienceDataSubject = new BehaviorSubject<any[]>(
     this.getDataFromLocalStorage('experienceData')
   );
   experienceData$ = this.experienceDataSubject.asObservable();
 
-  // Get local storage data
+  private experienceformDataSubject = new BehaviorSubject<any>({});
+  experienceformData$ = this.experienceformDataSubject.asObservable();
+
+  private experienceformDataSource = new BehaviorSubject<any>({});
+  experienceData: any[] = [];
+
+  // Get and set local storage data
   private getDataFromLocalStorage(key: string): any[] {
     return JSON.parse(localStorage.getItem(key) || '[]');
   }
 
-  // Set local storage data
   private setDataToLocalStorage(key: string, data: any[]): void {
     localStorage.setItem(key, JSON.stringify(data));
   }
 
-  // Update data function
+  // Update data general
   private updateData(
     subject: BehaviorSubject<any[]>,
     key: string,
@@ -68,8 +75,13 @@ export class DataService {
     this.setDataToLocalStorage(key, updatedData);
   }
 
-  // Personal data methods
+  //check id exists
 
+  public doesIdExist(subject: BehaviorSubject<any[]>, id: string): boolean {
+    return subject.value.some((item) => item.id === id);
+  }
+
+  // Personal data methods
   updatePersonalData(newData: PersonalData): void {
     const index = this.personalDataSubject.value.findIndex(
       (item) => item.id === newData.id
@@ -79,7 +91,7 @@ export class DataService {
       updatedData[index] = newData;
       this.personalDataSubject.next(updatedData);
       this.setDataToLocalStorage('personalData', updatedData);
-      alert('Data updated successfully!');
+      alert('Data updated');
     } else {
       this.addPersonalData(newData);
     }
@@ -87,11 +99,7 @@ export class DataService {
 
   addPersonalData(newData: PersonalData): void {
     this.updateData(this.personalDataSubject, 'personalData', newData);
-    alert('New data added successfully!');
-  }
-
-  public doesIdExist(subject: BehaviorSubject<any[]>, id: string): boolean {
-    return subject.value.some((item) => item.id === id);
+    alert('New data added');
   }
 
   // Family data methods
@@ -112,19 +120,20 @@ export class DataService {
 
   addFamilyData(newData: any): void {
     if (this.doesIdExist(this.familyDataSubject, newData.id)) {
-      alert(`The ID already exists in familyData.`);
+      alert(`The ID already exists`);
     } else {
       const updatedData = [...this.familyDataSubject.value, newData];
       this.familyDataSubject.next(updatedData);
       this.setDataToLocalStorage('familyData', updatedData);
-      alert('New data added successfully!');
+      alert('New data added');
     }
   }
 
   // Education data methods
+
   updateEducationData(newData: any): void {
     const index = this.educationDataSubject.value.findIndex(
-      (item) => item.employeeId === newData.employeeId
+      (item) => item.id === newData.id
     );
     if (index !== -1) {
       const updatedData = [...this.educationDataSubject.value];
@@ -138,25 +147,19 @@ export class DataService {
   }
 
   addEducationData(newData: any): void {
-    if (this.doesEmployeeIdExistInEducation(newData.employeeId)) {
-      alert(`The ID already exists in educationData.`);
+    if (this.doesIdExist(this.educationDataSubject, newData.id)) {
+      alert(`The ID already exists`);
     } else {
       const updatedData = [...this.educationDataSubject.value, newData];
       this.educationDataSubject.next(updatedData);
       this.setDataToLocalStorage('educationData', updatedData);
-      alert('New data added successfully!');
+      alert('New data added');
     }
-  }
-
-  doesEmployeeIdExistInEducation(employeeId: string): boolean {
-    return this.educationDataSubject.value.some(
-      (item) => item.employeeId === employeeId
-    );
   }
 
   // Experience data methods
   updateExperienceData(newData: any): void {
-    if (this.doesEmployeeIdExist(newData.employeeId)) {
+    if (this.doesIdExist(this.experienceDataSubject, newData.id)) {
       this.updateExperienceDataById(newData);
     } else {
       this.updateData(this.experienceDataSubject, 'experienceData', newData);
@@ -168,15 +171,9 @@ export class DataService {
     this.experienceformDataSource.next(updatedData);
   }
 
-  private doesEmployeeIdExist(employeeId: string): boolean {
-    return this.experienceDataSubject.value.some(
-      (item) => item.employeeId === employeeId
-    );
-  }
-
   private updateExperienceDataById(updatedData: any): void {
     const updatedExperienceData = this.experienceDataSubject.value.map((item) =>
-      item.employeeId === updatedData.employeeId ? updatedData : item
+      item.id === updatedData.id ? updatedData : item
     );
     this.experienceDataSubject.next(updatedExperienceData);
     this.setDataToLocalStorage('experienceData', updatedExperienceData);
@@ -219,7 +216,7 @@ export class DataService {
   deleteExperienceData(id: string): void {
     if (confirm('Are you sure?')) {
       const updatedData = this.experienceDataSubject.value.filter(
-        (item) => item.employeeId !== id
+        (item) => item.id !== id
       );
       this.experienceDataSubject.next(updatedData);
       this.setDataToLocalStorage('experienceData', updatedData);
@@ -230,7 +227,7 @@ export class DataService {
   deleteEducationData(id: string): void {
     if (confirm('Are you sure?')) {
       const updatedData = this.educationDataSubject.value.filter(
-        (item) => item.employeeId !== id
+        (item) => item.id !== id
       );
       this.educationDataSubject.next(updatedData);
       this.setDataToLocalStorage('educationData', updatedData);

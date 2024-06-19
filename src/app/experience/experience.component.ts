@@ -7,7 +7,7 @@ import { DataService } from '../data.service';
   styleUrls: ['./experience.component.css'],
 })
 export class ExperienceComponent implements OnInit {
-  experienceFormData: any = { employeeId: '', roles1: [], roles2: [] };
+  experienceFormData: any = { id: '', roles1: [], roles2: [] };
   personalDataIds: string[] = [];
 
   constructor(private renderer: Renderer2, private dataService: DataService) {}
@@ -40,28 +40,25 @@ export class ExperienceComponent implements OnInit {
   }
 
   experienceFormSubmit(): void {
-    if (this.experienceFormData.employeeId === '') {
+    if (this.experienceFormData.id === '') {
       alert('Select a valid employee id');
       return;
     }
 
     const existingIndex = this.dataService.experienceData.findIndex(
-      (entry) => entry.employeeId === this.experienceFormData.employeeId
+      (entry) => entry.id === this.experienceFormData.id
     );
 
     if (existingIndex !== -1) {
-      // Update existing entry
       this.dataService.updateExperienceDataAtIndex(
         existingIndex,
         this.experienceFormData
       );
     } else {
-      // Add new entry
       this.dataService.updateExperienceData(this.experienceFormData);
     }
 
-    this.experienceFormData = { employeeId: '', roles1: [], roles2: [] };
-    alert('Data submitted successfully!');
+    this.experienceFormData = { id: '', roles1: [], roles2: [] };
   }
 
   //slider
