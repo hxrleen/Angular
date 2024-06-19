@@ -19,8 +19,12 @@ export class PersonalComponent {
 
   onSubmit(): void {
     if (this.isValidFormData(this.formData)) {
-      this.formData.id = this.generateUniqueId();
-      this.dataService.updatePersonalData(this.formData);
+      if (this.formData.id) {
+        this.dataService.updatePersonalData(this.formData);
+      } else {
+        this.formData.id = this.generateUniqueId();
+        this.dataService.addPersonalData(this.formData);
+      }
       this.formData = {};
     } else {
       alert('Please fill out all fields.');

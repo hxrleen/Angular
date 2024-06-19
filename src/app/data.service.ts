@@ -14,7 +14,7 @@ interface PersonalData {
 })
 export class DataService {
   // Personal data
-  private personalDataSubject = new BehaviorSubject<PersonalData[]>(
+  public personalDataSubject = new BehaviorSubject<PersonalData[]>(
     this.getDataFromLocalStorage('personalData')
   );
   personalData$ = this.personalDataSubject.asObservable();
@@ -69,13 +69,25 @@ export class DataService {
   }
 
   // Personal data methods
+
   updatePersonalData(newData: PersonalData): void {
-    if (this.doesIdExist(this.personalDataSubject, newData.id)) {
-      alert(`The ID already exists in personalData.`);
+    const index = this.personalDataSubject.value.findIndex(
+      (item) => item.id === newData.id
+    );
+    if (index !== -1) {
+      const updatedData = [...this.personalDataSubject.value];
+      updatedData[index] = newData;
+      this.personalDataSubject.next(updatedData);
+      this.setDataToLocalStorage('personalData', updatedData);
+      alert('Data updated successfully!');
     } else {
-      this.updateData(this.personalDataSubject, 'personalData', newData);
-      alert('Data submitted successfully!');
+      this.addPersonalData(newData);
     }
+  }
+
+  addPersonalData(newData: PersonalData): void {
+    this.updateData(this.personalDataSubject, 'personalData', newData);
+    alert('New data added successfully!');
   }
 
   public doesIdExist(subject: BehaviorSubject<any[]>, id: string): boolean {
@@ -179,6 +191,16 @@ export class DataService {
       );
       this.personalDataSubject.next(updatedData);
       this.setDataToLocalStorage('personalData', updatedData);
+
+      this.familyDataSubject.next(updatedData);
+      this.setDataToLocalStorage('familyData', updatedData);
+
+      this.educationDataSubject.next(updatedData);
+      this.setDataToLocalStorage('educationData', updatedData);
+
+      this.experienceDataSubject.next(updatedData);
+      this.setDataToLocalStorage('experienceData', updatedData);
+
       alert('Data deleted successfully!');
     }
   }

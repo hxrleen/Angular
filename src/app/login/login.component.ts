@@ -17,7 +17,7 @@ export class LoginComponent {
     if (this.authService.login(this.username, this.password)) {
       this.router.navigate(['/home']);
     } else {
-      console.log('Form is invalid');
+      console.log('User not found');
     }
   }
 }
