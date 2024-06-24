@@ -27,17 +27,34 @@ export class EducationComponent implements OnInit {
       alert('selct a valid employee ID');
       return;
     }
-    if (
-      this.dataService.doesIdExist(
-        this.dataService.educationDataSubject,
-        this.formData.id
-      )
-    ) {
-      this.dataService.updateEducationData(this.formData);
+    if (this.isValidFormData(this.formData)) {
+      if (
+        this.dataService.doesIdExist(
+          this.dataService.educationDataSubject,
+          this.formData.id
+        )
+      ) {
+        this.dataService.updateEducationData(this.formData);
+      } else {
+        this.dataService.addEducationData(this.formData);
+        this.formData = { id: '' };
+      }
     } else {
-      this.dataService.addEducationData(this.formData);
+      alert('Please fill out all fields.');
     }
+  }
 
-    this.formData = { id: '' };
+  private isValidFormData(data: any): boolean {
+    return (
+      data.id &&
+      data.highdeg1 &&
+      data.highdeg2 &&
+      data.stream1 &&
+      data.stream2 &&
+      data.marks1 &&
+      data.marks2 &&
+      data.university1 &&
+      data.university2
+    );
   }
 }

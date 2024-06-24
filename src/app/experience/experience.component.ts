@@ -40,25 +40,29 @@ export class ExperienceComponent implements OnInit {
   }
 
   experienceFormSubmit(): void {
+    const form = this.isValidFormData(this.experienceFormData);
     if (this.experienceFormData.id === '') {
       alert('Select a valid employee id');
       return;
     }
 
-    const existingIndex = this.dataService.experienceData.findIndex(
-      (entry) => entry.id === this.experienceFormData.id
-    );
-
-    if (existingIndex !== -1) {
-      this.dataService.updateExperienceDataAtIndex(
-        existingIndex,
-        this.experienceFormData
+    if (this.isValidFormData(this.experienceFormData)) {
+      const existingIndex = this.dataService.experienceData.findIndex(
+        (entry) => entry.id === this.experienceFormData.id
       );
-    } else {
-      this.dataService.updateExperienceData(this.experienceFormData);
-    }
 
-    this.experienceFormData = { id: '', roles1: [], roles2: [] };
+      if (existingIndex !== -1) {
+        this.dataService.updateExperienceDataAtIndex(
+          existingIndex,
+          this.experienceFormData
+        );
+      } else {
+        this.dataService.updateExperienceData(this.experienceFormData);
+        this.experienceFormData = { id: '', roles1: [], roles2: [] };
+      }
+    } else {
+      alert('Please fill out all fields.');
+    }
   }
 
   //slider
@@ -139,5 +143,19 @@ export class ExperienceComponent implements OnInit {
         this.experienceFormData[roleArray].splice(index, 1);
       }
     }
+  }
+
+  private isValidFormData(data: any): boolean {
+    return (
+      data.id &&
+      data.lastcomp1 &&
+      data.tenure1 &&
+      data.lastcomp2 &&
+      data.tenure2 &&
+      Array.isArray(data.roles1) &&
+      data.roles1.length > 0 &&
+      Array.isArray(data.roles2) &&
+      data.roles2.length > 0
+    );
   }
 }

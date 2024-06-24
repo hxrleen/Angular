@@ -6,3 +6,54 @@ table{
     border: 2px solid black;
     border-radius: 5px;
 }
+
+
+.personalbtn{
+    margin: 2rem 2rem 0rem 2rem;
+    border-radius: 10px;
+    padding: 1rem;
+    width: 90%;
+    font-weight: bold;
+    color:rgb(0, 0, 0);
+    background-color: rgb(206, 203, 203);
+    border: 2px solid black;
+}
+
+.familybtn{
+    margin: 2rem 2rem 0rem 2rem;
+    border-radius: 10px;
+    padding: 1rem;
+    width: 90%;
+    color:rgb(0, 0, 0);
+    font-weight: bold;
+    background-color: rgb(206, 203, 203);
+    border: 2px solid black;
+}
+
+.educationbtn{
+    margin: 2rem 2rem 0rem 2rem;
+    border-radius: 10px;
+    padding: 1rem;
+    width: 90%;
+    color:rgb(0, 0, 0);
+    font-weight: bold;
+    background-color: rgb(206, 203, 203);
+    border: 2px solid black;
+}
+
+.experiencebtn{
+    margin: 2rem 2rem 0rem 2rem;
+    border-radius: 10px;
+    font-weight: bold;
+    padding: 1rem;
+    width: 90%;
+    color:rgb(0, 0, 0);
+    background-color: rgb(206, 203, 203);
+    border: 2px solid black;
+}
+
+.container{
+    align-content: center;
+    height: 100%;
+    justify-content: center;
+}

@@ -27,17 +27,31 @@ export class FamilyComponent implements OnInit {
       alert('Please select a valid Employee ID.');
       return;
     }
-    if (
-      this.dataService.doesIdExist(
-        this.dataService.familyDataSubject,
-        this.formData.id
-      )
-    ) {
-      this.dataService.updateFamilyData(this.formData);
+    if (this.isValidFormData(this.formData)) {
+      if (
+        this.dataService.doesIdExist(
+          this.dataService.familyDataSubject,
+          this.formData.id
+        )
+      ) {
+        this.dataService.updateFamilyData(this.formData);
+      } else {
+        this.dataService.addFamilyData(this.formData);
+      }
+      this.formData = { id: '' };
     } else {
-      this.dataService.addFamilyData(this.formData);
+      alert('Please fill out all fields.');
     }
-    this.formData = { id: '' };
-    alert('Data submitted successfully!');
+  }
+
+  private isValidFormData(data: any): boolean {
+    return (
+      data.fathersName &&
+      data.fatherDOB &&
+      data.motherName &&
+      data.motherDOB &&
+      data.spouseName &&
+      data.spouseDOB
+    );
   }
 }

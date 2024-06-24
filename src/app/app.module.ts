@@ -16,6 +16,10 @@ import { EducationComponent } from './education/education.component';
 import { ExperienceComponent } from './experience/experience.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DataService } from './data.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DemoPipe } from './pipes/demo.pipe';
+import { YearPipe } from './pipes/year.pipe';
+import { CustomDirective } from './custom.directive';
 
 @NgModule({
   declarations: [
@@ -31,8 +35,17 @@ import { DataService } from './data.service';
     FamilyComponent,
     EducationComponent,
     ExperienceComponent,
+    DemoPipe,
+    YearPipe,
+    CustomDirective,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+  ],
   providers: [DataService],
   bootstrap: [AppComponent],
 })
