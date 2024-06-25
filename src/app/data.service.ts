@@ -27,7 +27,6 @@ export class DataService {
   public familyDataSubject = new BehaviorSubject<any[]>(
     this.getDataFromLocalStorage('familyData')
   );
-
   familyData$ = this.familyDataSubject.asObservable();
 
   private familyformDataSubject = new BehaviorSubject<any>({});
@@ -37,7 +36,6 @@ export class DataService {
   public educationDataSubject = new BehaviorSubject<any[]>(
     this.getDataFromLocalStorage('educationData')
   );
-
   educationData$ = this.educationDataSubject.asObservable();
 
   private educationformDataSubject = new BehaviorSubject<any>({});

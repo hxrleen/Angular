@@ -26,7 +26,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let formData of personalDataArray">
-              <td scope="row">{{ formData.id }}</td>
+              <td scope="row" style="font-weight: bold;">{{ formData.id }}</td>
               <td>{{ formData.name }}</td>
               <td>{{ formData.dob| date: 'dd/MM/yyyy' }}</td>
               <td>{{ formData.designation }}</td>
@@ -65,7 +65,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let formData of familyDataArray">
-              <td scope="row">{{ formData.id }}</td>
+              <td scope="row" style="font-weight: bold;">{{ formData.id }}</td>
               <td>{{ formData.fathersName }}</td>
               <td>{{ formData.fatherDOB | date: 'dd/MM/yyyy'}}</td>
               <td>{{ formData.motherName }}</td>

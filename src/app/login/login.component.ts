@@ -15,7 +15,7 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (this.authService.login(this.username, this.password)) {
-      this.router.navigate(['/home']);
+      this.router.navigate(['home']);
     } else {
       console.log('User not found');
     }
